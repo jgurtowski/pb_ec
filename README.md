@@ -49,6 +49,32 @@ the pbread.test.fa (uncorrected read) and pbread.test.fa.corrected to the
 Oryza Sativa genome you will find that the uncorrected read has ~85% identity
 while the corrected read has >99% identity.
 
+Running on a Cluster
+=====
+	
+	1.a Build unitigs with Celera or another assembler. Refer to chosen assembler's manual for details
+
+	1.b Begin by splitting the Pacbio reads into bins using the partition.py script. It is suggested that
+	you put anywhere between 5 and 50 pacbio reads in a file, depending on how much data you have.
+
+	2.Edit the correct.sh script to point to the unitigs created in 1.a and set the path to the correct.py
+	script.
+
+	3. The partition.py script will have created many directories with files in them in the form 0001/p0001,
+	0001/p0002 etc. To launch the correction with SGE on a particular bin cd into the bin and run:
+	
+	$> qsub -cwd -t 1:${FILES_PER_BIN} ../correct.sh
+	
+	where ${FILES_PER_BIN} is how many files per bin you gave as a parameter to the partition.py script.
+
+	4. Wait
+	
+	5. Concatenate all files. Usually can do something like this from the top level dir:
+	
+	$> cat `find . | grep corrected$` > corrected.fa
+
+	6. Launch your favorate overlap assembler on corrected.fa
+
 
 Checking Results
 =====
