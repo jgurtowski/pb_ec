@@ -31,9 +31,8 @@ The high level workflow is as follows:
   2. Update file paths in correct.sh
   3. If running on a cluster, partition pacbio reads using partition.py
   3. Run correct.sh locally or on a cluster
-  4. Concatenate output *.corrected files
-  5. Assemble concatenated *.corrected reads using Celera or other Overlap Assembler.
-
+  4. Concatenate the output (*.corrected) files
+  5. Assemble concatenated reads using Celera or another Overlap Assembler.
 
 
 Example
@@ -44,10 +43,10 @@ To run the example:
 $> cd test  
 $> ../correct.sh pbread.test.fa  
   
-A file pbread.test.fa.corrected will be produced. The pipeline is using
-the test/utg.test.fa as the short-unitigs for correction. You blast both
+A file pbread.test.fa.corrected will be produced. The pipeline is using the short-read 
+unitigs in test/utg.test.fa for correction. If you blast both
 the pbread.test.fa (uncorrected read) and pbread.test.fa.corrected to the
-Oryza Sativa genome and find that the uncorrected read has ~85% identity
+Oryza Sativa genome you will find that the uncorrected read has ~85% identity
 while the corrected read has >99% identity.
 
 
